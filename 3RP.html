@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="3RP.css" />
+    <title>3RP ROBOTIC ARM</title>
+  </head>
+  <body>
+    <section class="main">
+      <div class="header">
+        <h1>3RP ROBOTIC ARM CONTROL</h1>
+        <img src="funaablogo.jpg" alt="logo" />
+      </div>
+      <div class="kinematics">
+        <div class="forward_kinematics">
+          <h3>FORWARD KINEMATICS</h3>
+          <div class="container">
+            <p class="container_paragraph">J1</p>
+            <!-- <div>live is good</div> -->
+            <div class="angle_parameter">
+              <div class="progress">
+                <div class="progress_bar progress_bar_j1" style="width: 90%">
+                  90
+                </div>
+              </div>
+              <div class="angle_control">
+                <div class="increment manipulate minusj1"><b>JOG-</b></div>
+                <input type="text" class="input inputj1" />
+                <div class="decrement manipulate plusj1"><b>JOG+</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <p class="container_paragraph">J2</p>
+            <!-- <div>live is good</div> -->
+            <div class="angle_parameter">
+              <div class="progress">
+                <div class="progress_bar progress_bar_j2" style="width: 60%">
+                  60
+                </div>
+              </div>
+              <div class="angle_control">
+                <div class="increment manipulate minusj2"><b>JOG-</b></div>
+                <input type="text" class="input inputj2" />
+                <div class="decrement manipulate plusj2"><b>JOG+</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <p class="container_paragraph">J3</p>
+            <!-- <div>live is good</div> -->
+            <div class="angle_parameter">
+              <div class="progress">
+                <div class="progress_bar progress_bar_j3" style="width: 70%">
+                  70
+                </div>
+              </div>
+              <div class="angle_control">
+                <div class="increment manipulate minusj3"><b>JOG-</b></div>
+                <input type="text" class="input inputj3" />
+                <div class="decrement manipulate plusj3"><b>JOG+</b></div>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <p class="axis">Z</p>
+            <!-- <div>live is good</div> -->
+            <div class="angle_parameter">
+              <div class="progress">
+                <div class="progress_bar progress_bar_z" style="width: 50%">
+                  50
+                </div>
+              </div>
+              <div class="angle_control">
+                <div class="increment manipulate minusz"><b>JOG-</b></div>
+                <input type="text" class="input inputz" />
+                <div class="decrement manipulate plusz"><b>JOG+</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="inverse_kinematics">
+          <h3>INVERSE KINEMATICS</h3>
+          <div class="input_inverse">
+            <div>
+              <input type="text" class="input_axisx" />
+              <p class="text_x">X: 0</p>
+            </div>
+            <div>
+              <input type="text" class="input_axisy" />
+              <p class="text_y">Y: 0</p>
+            </div>
+            <div>
+              <input type="text" class="input_axisz" />
+              <p class="text_z">Z: 0</p>
+            </div>
+          </div>
+          <div class="inverse_kinematics_text texts">Move to position</div>
+          <p class="inverse_kinematics_text">Gripper</p>
+          <div class="gripper_control">
+            <p><b>CLOSE</b></p>
+            <div></div>
+            <p><b>OPEN</b></p>
+          </div>
+          <div class="position">
+            <p class="positioning">SAVE POSITION</p>
+            <p class="run">RUN PROGRAM</p>
+          </div>
+          <div class="last_saved">
+            <div>
+              <p><b>Last saved position</b></p>
+              <p class="none"><b>None</b></p>
+            </div>
+            <div class="update">(UPDATE)</div>
+          </div>
+          <div class="clear">(CLEAR)</div>
+          <div class="agitate">
+            <div class="speed displace">
+              <p><b>Speed</b></p>
+              <div>500</div>
+            </div>
+            <div class="acceleration displace">
+              <p><b>Acceleration</b></p>
+              <div>500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
