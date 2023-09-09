@@ -100,7 +100,15 @@
           <p class="inverse_kinematics_text">Gripper</p>
           <div class="gripper_control">
             <p><b>CLOSE</b></p>
-            <div></div>
+            <input
+              type="range"
+              name="slider1"
+              id="slider1"
+              min="0"
+              max="100"
+              step="1"
+              value="0"
+            />
             <p><b>OPEN</b></p>
           </div>
           <div class="position">
@@ -118,11 +126,36 @@
           <div class="agitate">
             <div class="speed displace">
               <p><b>Speed</b></p>
-              <div>500</div>
+              <!-- <div>500</div> -->
+              <input
+                type="range"
+                id="slider"
+                name="slider"
+                min="0"
+                max="100"
+                step="1"
+                value="50"
+              />
+              <p>
+                <span id="sliderValue"><b>250</b></span>
+              </p>
             </div>
+
             <div class="acceleration displace">
               <p><b>Acceleration</b></p>
-              <div>500</div>
+              <!-- <div>500</div> -->
+              <input
+                type="range"
+                id="slider2"
+                name="slider"
+                min="0"
+                max="100"
+                step="1"
+                value="50"
+              />
+              <p>
+                <span id="sliderValue2"><b>250</b></span>
+              </p>
             </div>
           </div>
         </div>

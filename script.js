@@ -26,6 +26,10 @@ const positioning = document.querySelector(".positioning");
 const clear = document.querySelector(".clear");
 const update = document.querySelector(".update");
 const runProgram = document.querySelector(".run");
+const slider = document.getElementById("slider");
+const sliderValue = document.getElementById("sliderValue");
+const slider2 = document.getElementById("slider2");
+const sliderValue2 = document.getElementById("sliderValue2");
 let position = [];
 const increment = function (increase, progress, input) {
   increase.addEventListener("click", () => {
@@ -81,4 +85,16 @@ positioning.addEventListener("click", () => {
 clear.addEventListener("click", () => {
   savedPosition.innerHTML = "<b>None<b>";
 });
+function manipulateSlider(slide, slideValue) {
+  slide.addEventListener("input", () => {
+    /**
+     * Reffering to the desktop app, the maximum speed value is 500
+     * Hence, i've done some calculation to enable the maximum value of the slider be 500
+     */
+    const value = (+slide.value / 100) * 500;
+    slideValue.innerHTML = `<b>${value}</b>`;
+  });
+}
+manipulateSlider(slider, sliderValue);
+manipulateSlider(slider2, sliderValue2);
 runProgram.addEventListener("click", async () => {});
