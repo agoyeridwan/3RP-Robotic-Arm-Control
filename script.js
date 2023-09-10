@@ -26,15 +26,17 @@ const positioning = document.querySelector(".positioning");
 const clear = document.querySelector(".clear");
 const update = document.querySelector(".update");
 const runProgram = document.querySelector(".run");
+const openValue = document.querySelector(".openValue");
 const slider = document.getElementById("slider");
 const sliderValue = document.getElementById("sliderValue");
+const slider1 = document.getElementById("slider1");
 const slider2 = document.getElementById("slider2");
 const sliderValue2 = document.getElementById("sliderValue2");
+
 let position = [];
 const increment = function (increase, progress, input) {
   increase.addEventListener("click", () => {
     const progressContent = +input.value + +progress.textContent;
-    console.log(+input.value);
     progress.textContent = progressContent;
     let progressJ1Width = (progressContent / 100) * 100;
     if (progressJ1Width > 100) {
@@ -42,7 +44,6 @@ const increment = function (increase, progress, input) {
       progress.textContent = 100;
       alert("You have exceeded the maximum angle");
     }
-    console.log(progress.style.width);
     progress.style.setProperty("width", `${progressJ1Width}%`);
   });
 };
@@ -72,29 +73,25 @@ moveToPosition.addEventListener("click", () => {
   textX.textContent = `X: ${+inputX.value}`;
   textY.textContent = `Y: ${+inputY.value}`;
   textZ.textContent = `Z: ${+inputZ.value}`;
-  console.log(position);
 });
 positioning.addEventListener("click", () => {
   position = [];
   position.push(+inputX.value);
   position.push(+inputY.value);
   position.push(+inputZ.value);
-  console.log(position);
   savedPosition.innerHTML = `<b>X: ${position[0]} Y: ${position[1]} Z: ${position[2]}<b>`;
 });
 clear.addEventListener("click", () => {
   savedPosition.innerHTML = "<b>None<b>";
 });
-function manipulateSlider(slide, slideValue) {
+function manipulateSlider(slide, slideValue, status = false) {
   slide.addEventListener("input", () => {
-    /**
-     * Reffering to the desktop app, the maximum speed value is 500
-     * Hence, i've done some calculation to enable the maximum value of the slider be 500
-     */
-    const value = (+slide.value / 100) * 500;
-    slideValue.innerHTML = `<b>${value}</b>`;
+    slideValue.innerHTML = `<b>Value: ${slide.value}</b>`;
+    if (!status) slideValue.innerHTML = `<b>${slide.value}</b>`;
   });
 }
+
 manipulateSlider(slider, sliderValue);
 manipulateSlider(slider2, sliderValue2);
+manipulateSlider(slider1, openValue, true);
 runProgram.addEventListener("click", async () => {});
