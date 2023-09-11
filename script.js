@@ -66,7 +66,8 @@ decrement = function (decrease, progress, input, type) {
 async function handleUrl(data) {
   if (typeof data === "object") data = `${data[0]} ${data[1]} ${data[2]}`;
   try {
-    await fetch(`http://192.168.4.1/?data=${data}`, {
+    // Note this only works when it is being hosted on the microcontroller
+    await fetch(`http://${window.location.hostname}/?data=${data}`, {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
