@@ -34,8 +34,8 @@ const slider2 = document.getElementById("slider2");
 const sliderValue2 = document.getElementById("sliderValue2");
 
 let position = [];
-const increment = function (increase, progress, input) {
-  increase.addEventListener("click", () => {
+const increment = function (increase, progress, input, type) {
+  increase.addEventListener("click", async () => {
     const progressContent = +input.value + +progress.textContent;
     progress.textContent = progressContent;
     let progressJ1Width = (progressContent / 100) * 100;
@@ -45,11 +45,12 @@ const increment = function (increase, progress, input) {
       alert("You have exceeded the maximum angle");
     }
     progress.style.setProperty("width", `${progressJ1Width}%`);
+    await handleUrl(`${type}=${progress.textContent}`);
   });
 };
 
-decrement = function (decrease, progress, input) {
-  decrease.addEventListener("click", () => {
+decrement = function (decrease, progress, input, type) {
+  decrease.addEventListener("click", async () => {
     const progressContent = +progress.textContent - Number(input.value);
     progress.textContent = progressContent;
     let progressJ1Width = (progressContent / 100) * 100;
@@ -59,20 +60,47 @@ decrement = function (decrease, progress, input) {
       alert("You have excedded the minimum angle");
     }
     progress.style.setProperty("width", `${progressJ1Width}%`);
+    await handleUrl(`${type}=${progress.textContent}`);
   });
 };
-increment(increaseJ1, progressJ1, inputJ1);
-decrement(decreaseJ1, progressJ1, inputJ1);
-increment(increaseJ2, progressJ2, inputJ2);
-decrement(decreaseJ2, progressJ2, inputJ2);
-increment(increaseJ3, progressJ3, inputJ3);
-decrement(decreaseJ3, progressJ3, inputJ3);
-increment(increaseZ, progressZ, inputjZ);
-decrement(decreaseZ, progressZ, inputjZ);
-moveToPosition.addEventListener("click", () => {
+async function handleUrl(data) {
+  if (typeof data === "object") data = `${data[0]} ${data[1]} ${data[2]}`;
+  try {
+    await fetch(`http://192.168.4.1/?data=${data}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "text/plain",
+      },
+    });
+  } catch (error) {}
+}
+function manipulateSlider(slide, slideValue, status = false) {
+  slide.addEventListener("input", async () => {
+    slideValue.innerHTML = `<b>Value: ${slide.value}</b>`;
+    if (!status) slideValue.innerHTML = `<b>${slide.value}</b>`;
+    console.log(slide.value);
+    await handleUrl(slide.value);
+  });
+}
+
+increment(increaseJ1, progressJ1, inputJ1, "J1");
+decrement(decreaseJ1, progressJ1, inputJ1, "J1");
+increment(increaseJ2, progressJ2, inputJ2, "J2");
+decrement(decreaseJ2, progressJ2, inputJ2, "J2");
+increment(increaseJ3, progressJ3, inputJ3, "J3");
+decrement(decreaseJ3, progressJ3, inputJ3, "J3");
+increment(increaseZ, progressZ, inputjZ, "Z");
+decrement(decreaseZ, progressZ, inputjZ, "Z");
+moveToPosition.addEventListener("click", async () => {
+  let values = [];
   textX.textContent = `X: ${+inputX.value}`;
+  values.push(+inputX.value);
   textY.textContent = `Y: ${+inputY.value}`;
+  values.push(+inputY.value);
   textZ.textContent = `Z: ${+inputZ.value}`;
+  values.push(+inputZ.value);
+  console.log(values);
+  await handleUrl(values);
 });
 positioning.addEventListener("click", () => {
   position = [];
@@ -83,15 +111,12 @@ positioning.addEventListener("click", () => {
 });
 clear.addEventListener("click", () => {
   savedPosition.innerHTML = "<b>None<b>";
+  position = [];
 });
-function manipulateSlider(slide, slideValue, status = false) {
-  slide.addEventListener("input", () => {
-    slideValue.innerHTML = `<b>Value: ${slide.value}</b>`;
-    if (!status) slideValue.innerHTML = `<b>${slide.value}</b>`;
-  });
-}
 
 manipulateSlider(slider, sliderValue);
 manipulateSlider(slider2, sliderValue2);
 manipulateSlider(slider1, openValue, true);
-runProgram.addEventListener("click", async () => {});
+runProgram.addEventListener("click", async () => {
+  await handleUrl(position);
+});
