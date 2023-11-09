@@ -141,7 +141,9 @@ h3 {
   margin-bottom: 3px;
   outline: none;
   border: none;
-  border-bottom: solid 2px green;
+  border-bottom: solid 3px green;
+  text-align: center;
+  font-size: 25px;
 }
 .input_inverse div p {
   font-size: 60%;
