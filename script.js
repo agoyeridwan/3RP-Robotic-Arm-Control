@@ -46,8 +46,8 @@ let L2 = 136.5;
 let theta2 = 0;
 let phi = 0;
 let theta1 = 0;
-let realProgressJ2;
-let realContentJ1;
+let realProgressJ2 = 0;
+let realContentJ1 = 0;
 let gripperValue = 150;
 let speed = 500;
 let acceleration = 500;
@@ -152,22 +152,27 @@ function inverseKinematics(x, y) {
   if (isNaN(theta1)) theta1 = 0;
   if (isNaN(theta2)) theta2 = 0;
   if (isNaN(phi)) phi = 0;
+  alert(
+    "The inverse kinematics calculation is undefined please change the coordinate values"
+  );
   // zP = 100;
   resetWidth(theta1, theta2, phi);
 
-  console.log(theta1);
-  console.log(theta2);
-  console.log(phi);
+  // console.log(theta1);
+  // console.log(theta2);
+  // console.log(phi);
 }
 const increment = function (increase, progress, input, type) {
   let progressContent = +progress.textContent;
   increase.addEventListener("click", async () => {
+    console.log(input.value);
     progressContent = +input.value + +progress.textContent;
     progress.textContent = progressContent;
 
     let progressJ1Width = ((progressContent + 90) / 356) * 100;
     if (type === "J1") {
       const value = [];
+      inputX.value = inputY.value = inputZ.value = "";
       realContentJ1 = progressContent;
       progressJ1Width = ((progressContent + 90) / 356) * 100;
       console.log("realContentJ1", realContentJ1);
@@ -187,6 +192,8 @@ const increment = function (increase, progress, input, type) {
       handleUrl(value);
     }
     if (type === "J2") {
+      // if (!progressContent) progressContent = 0;
+      inputX.value = inputY.value = inputZ.value = "";
       const value = [];
       progressJ1Width = ((progressContent + 150) / 300) * 100;
       realProgressJ2 = progressContent;
@@ -206,6 +213,7 @@ const increment = function (increase, progress, input, type) {
     }
     if (type == "J3") {
       const value = [];
+      inputX.value = inputY.value = inputZ.value = "";
       progressJ1Width = ((progressContent + 162) / 324) * 100;
       phi = progressContent;
       sendData(value);
@@ -220,6 +228,7 @@ const increment = function (increase, progress, input, type) {
     }
     if (type == "Z") {
       const value = [];
+      inputX.value = inputY.value = inputZ.value = "";
       progressJ1Width = (progressContent / 150) * 100;
       zP = progressContent;
       textZ.textContent = `Z: ${progressContent}`;
@@ -244,6 +253,7 @@ decrement = function (decrease, progress, input, type) {
     progressContent = +progress.textContent - Number(input.value);
     progress.textContent = progressContent;
     if (type === "J1") {
+      inputX.value = inputY.value = inputZ.value = "";
       const value = [];
       progressJ1Width = ((progressContent + 90) / 356) * 100;
       realContentJ1 = progressContent;
@@ -263,6 +273,7 @@ decrement = function (decrease, progress, input, type) {
     }
     if (type === "J2") {
       const value = [];
+      inputX.value = inputY.value = inputZ.value = "";
       progressJ1Width = ((progressContent + 150) / 300) * 100;
       realProgressJ2 = progressContent;
       console.log("realContentJ1", realContentJ1);
@@ -280,6 +291,7 @@ decrement = function (decrease, progress, input, type) {
       await handleUrl(value);
     }
     if (type === "J3") {
+      inputX.value = inputY.value = inputZ.value = "";
       const value = [];
       progressJ1Width = ((progressContent + 162) / 324) * 100;
       phi = progressContent;
@@ -294,6 +306,7 @@ decrement = function (decrease, progress, input, type) {
       await handleUrl(value);
     }
     if (type == "Z") {
+      inputX.value = inputY.value = inputZ.value = "";
       const value = [];
       progressJ1Width = (progressContent / 150) * 100;
       zP = progressContent;
@@ -309,7 +322,6 @@ decrement = function (decrease, progress, input, type) {
       await handleUrl(value);
     }
     progress.style.setProperty("width", `${progressJ1Width}%`);
-    // await handleUrl(`${type}=${progress.textContent}`);
   });
 };
 async function handleUrl(data) {
@@ -326,15 +338,15 @@ async function handleUrl(data) {
   } catch (error) {}
 }
 function manipulateSlider(slide, slideValue, status = false, type) {
-  slide.addEventListener("input", async () => {
+  slide.addEventListener("change", async () => {
     const values = [];
+
+    count++;
     slideValue.innerHTML = `<b>Value: ${slide.value}</b>`;
     // console.log(slide);
     if (type == "slider2") {
       console.log(slide.value);
       acceleration = +slide.value;
-      // console.log(values.join(","));
-      // await handleUrl(values)
     }
     if (type == "slider") {
       speed = +slide.value;
@@ -348,10 +360,11 @@ function manipulateSlider(slide, slideValue, status = false, type) {
       console.log(slide.value);
     }
     sendData(values);
+    // const joinedVal = values.join(",");
     console.log(values.join(","));
-
     await handleUrl(values);
   });
+  count = 0;
 }
 
 increment(increaseJ1, progressJ1, inputJ1, "J1");
@@ -378,9 +391,13 @@ moveToPosition.addEventListener("click", async () => {
 positioning.addEventListener("click", async () => {
   const stat = saveStatus++;
   const value = [];
+  const position = [];
   savedPos.innerHTML = `<b>Last saved position ${stat}</b> `;
   sendData(value);
   console.log(value.join(","));
+  position.push(inputX.value);
+  position.push(inputY.value);
+  position.push(inputZ.value);
   savedPosition.innerHTML = `<b>X: ${position[0]} Y: ${position[1]} Z: ${position[2]}<b>`;
   await handleUrl(value);
 });
@@ -388,10 +405,10 @@ clear.addEventListener("click", () => {
   savedPosition.innerHTML = "<b>None<b>";
   position = [];
 });
-
+manipulateSlider(slider1, openValue, true);
 manipulateSlider(slider, sliderValue, false, "slider");
 manipulateSlider(slider2, sliderValue2, false, "slider2");
-manipulateSlider(slider1, openValue, true);
+
 runProgram.addEventListener("click", async () => {
   console.log(runProgram.textContent);
   if (runProgram.textContent === "STOP") {
@@ -408,32 +425,22 @@ runProgram.addEventListener("click", async () => {
   await handleUrl(position);
 });
 document.addEventListener("keypress", (event) => {
-  console.log(event.key);
   if (event.key === "Enter") {
     if (inputX.value) {
       inverseKinematics(+inputX.value, +inputY.value);
       console.log(inputX.value);
       console.log(textX.textContent);
-      // console.log(if(input)
       textX.textContent = `X: ${inputX.value}`;
-
-      // inputX.value = "";
     }
     if (inputY.value) {
       inverseKinematics(+inputX.value, +inputY.value);
       textY.textContent = `Y: ${inputY.value}`;
-      // inputY.value = "";
     }
     if (inputZ.value) {
       zP = +inputZ.value;
       console.log(zP);
       inverseKinematics(+inputX.value, +inputY.value);
       textZ.textContent = `Z: ${inputZ.value}`;
-
-      // inputZ.value = "";
     }
-    // zP = 100;
   }
 });
-// console.log();
-// console.log(typeof 5);
