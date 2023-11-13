@@ -3,10 +3,115 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Robotic Arm Manual</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <a href="3RP.html">3RP control</a>
-    a
+    <header>
+      <h1>3RP Robotic Arm Manual</h1>
+    </header>
+
+    <section id="section1">
+      <div class="robot">
+        <img src="3rp.jpg" />
+      </div>
+      <div matric>
+        <p class="text"><b>Designed By:</b></p>
+        <p><b>20171472 AGOYE</b></p>
+        <p><b>20171465 ADENIYI</b></p>
+        <p><b>20181766 IPAYE</b></p>
+      </div>
+    </section>
+
+    <section id="section2">
+      <h2>Introduction</h2>
+      <p>
+        The 3RP configuration refers to the presence of three revolute joints
+        and one prismatic joint in an articulated robotic arm. The three
+        revolute joints enable the arm to rotate, while the prismatic joint
+        allows for linear motion. This combination of joint types provides
+        enhanced maneuverability and dexterity to the robotic arm. End effectors
+        are positioned at the extreme end of the robotic arm they are used to
+        perform specific functions. The end effectors used in this robotic arm
+        is a gripper which grips objects within its reach.
+      </p>
+    </section>
+
+    <section id="section3">
+      <h2>Operating Instructions</h2>
+      <div class="Forward">
+        <p><b>Forward Kinematics</b></p>
+        <div>
+          Forward Kinematics is a method used in robotics to determine the
+          position and orientation of the end-effector based on the known values
+          of joint angles in robotic kinematics. It describes the mapping from
+          the joint space, helping to understand the overall configuration of
+          robotic system.
+        </div>
+      </div>
+      <div class="inverse">
+        <p><b>Inverse Kinematics</b></p>
+        <div>
+          This is the opposite concept to forward kinematics. Instead of
+          determining the end-effector's position and orientation from joint
+          angles, inverse kinematics involves calculating the joint angles
+          required to achieve a desired position and orientation of the end
+          effector. It is used for planning and controlling movement. It also
+          allows the system to determine how the robot's joints should move to
+          reach a specific target.
+        </div>
+      </div>
+      <!-- Add content for Section 3 -->
+    </section>
+    <section id="section4">
+      <p><b>Procedures to use</b></p>
+      <ul>
+        <li>Supply power to the robotic arm through the plug</li>
+        <li>
+          Connect to the hotspot with the SSID <b>(Robotic Arm)</b> using the
+          password <b>mechatronics</b>
+        </li>
+        <li>
+          Access the web application through your web browser by entering the IP
+          Adress <b>(192.168.4.1)</b>
+        </li>
+        <li>
+          Click on the <a><b>"Go to Controller" </b></a>button in order to
+          access the robot controller
+        </li>
+        <li>
+          Decide the operation to be performed i.e either forward kinematics or
+          inverse kinematics
+        </li>
+        <li>
+          For forward kinematics, specify the joint angles<b> J1, J2, J3,z</b>
+        </li>
+        <li>
+          The controller then uses the angles specified to calculate the x,y,z
+          co-ordinates of the end-efector. This triggers the end effector to
+          move to the calculated position
+        </li>
+        <li>
+          Note that the value of z specifies the prismatic motion (i.e
+          translational motion)
+        </li>
+        <li>For inverse Kinematics, specify the <b>x,y,z</b> co-ordinates</li>
+        <li>
+          The values specified are used to calculate the joint angles of the
+          robotic arm
+        </li>
+        <li>
+          Click on move to position in order to move the joints of the robotic
+          arm
+        </li>
+        <li>
+          Note: When on the controller page, you can access the manual by
+          clicking on the funaab logo
+        </li>
+      </ul>
+    </section>
+    <div id="position">
+      <a href="3RP.html"><b>Go to Controller</b></a>
+    </div>
   </body>
 </html>
